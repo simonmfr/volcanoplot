@@ -31,25 +31,25 @@ def volcanoplot(res=rank, pval_cutoff=0.95, pval_colour_threshold=0.05, log2FC_c
     toplot = res[res.pvals_adj <= pval_cutoff]
 
     # plot
-    # plot non-significant genes with small log2FC
+    # plot non-significant genes with log2FC < log2FC_colour_threshold
     plt.plot(toplot[(toplot.pvals_adj > pval_colour_threshold) & (toplot['log2FC'].abs()<log2FC_colour_threshold)].log2FC,
              toplot[(toplot.pvals_adj > pval_colour_threshold) & (toplot['log2FC'].abs()<log2FC_colour_threshold)].nlog10_pval_adj, 'o',
-             color='#808080', alpha=.6, ms=dotsize, label='NS') # green
+             color='#808080', alpha=.6, ms=dotsize, label='NS & log2FC < '+str(log2FC_colour_threshold)) # green
 
-    # plot non-significant genes with large log2FC
+    # plot non-significant genes with log2FC >= log2FC_colour_threshold
     plt.plot(toplot[(toplot.pvals_adj > pval_colour_threshold) & (toplot['log2FC'].abs()>=log2FC_colour_threshold)].log2FC,
              toplot[(toplot.pvals_adj > pval_colour_threshold) & (toplot['log2FC'].abs()>=log2FC_colour_threshold)].nlog10_pval_adj, 'o',
-             color='#1a9641', alpha=.6, ms=dotsize, label='log2FC') # grey 
+             color='#1a9641', alpha=.6, ms=dotsize, label='NS & log2FC >= '+str(log2FC_colour_threshold)) # grey 
 
-    # plot significant genes with small log2FC
+    # plot significant genes with log2FC < log2FC_colour_threshold
     plt.plot(toplot[(toplot.pvals_adj<=pval_colour_threshold) & (toplot['log2FC'].abs()<log2FC_colour_threshold)].log2FC,
              toplot[(toplot.pvals_adj<=pval_colour_threshold) & (toplot['log2FC'].abs()<log2FC_colour_threshold)].nlog10_pval_adj, 'o',
-             color='#6495ED', alpha=.6, ms=dotsize, label='p-value') # blue
+             color='#6495ED', alpha=.6, ms=dotsize, label='Sign. & log2FC < '+str(log2FC_colour_threshold)) # blue
 
-    # plot significant genes with large log2FC
+    # plot significant genes with log2FC >= log2FC_colour_threshold
     plt.plot(toplot[(toplot.pvals_adj<=pval_colour_threshold) & (toplot['log2FC'].abs()>=log2FC_colour_threshold)].log2FC,
              toplot[(toplot.pvals_adj<=pval_colour_threshold) & (toplot['log2FC'].abs()>=log2FC_colour_threshold)].nlog10_pval_adj, 'o',
-             color='#FF3131', alpha=.6, ms=dotsize, label='p-value & log2FC') # red
+             color='#FF3131', alpha=.6, ms=dotsize, label='Sign. & log2FC >= '+str(log2FC_colour_threshold)) # red
 
     # axis labels etc
     plt.xlabel('log2FC')
