@@ -65,7 +65,7 @@ def volcanoplot(res=rank, pval_cutoff=0.95, pval_colour_threshold=0.05, log2FC_c
     for x, y, s in zip(main_x, main_y, list(main_x.index)):
         texts.append(plt.text(x, y, s))
 
-    adjust_text(texts,force_text=(1,1),arrowprops=dict(arrowstyle="-",lw=1))
+    adjust_text(texts,force_text=(0.1,0.1),arrowprops=dict(arrowstyle="-",lw=1))
     
     return(plt)
 
